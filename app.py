@@ -1,36 +1,55 @@
 import os
 
+''' Esse é um sistema de gerenciamento de restaurantes. Ele permite cadastrar novos restaurantes, listar os restaurantes cadastrados e alterar o estado dos restaurantes (ativado ou desativado).'''
 restaurantes = [{'nome':'Praça', 'categoria':'Japonesa', 'ativo':False},
                 {'nome':'Pizza Suprema', 'categoria':'Pizza', 'ativo':True},
                 {'nome':'Cantina', 'categoria':'Italiano', 'ativo':False}]
 
 def exibir_nome_app():
+    ''' Essa função é responsável por exibir o nome do app.'''
     print('Sabor Express\n')
 
 def exibir_opcoes():
+    ''' Essa função é responsável por exibir as opções do menu.'''
     print('1. Cadastrar restaurante')
     print('2. Listar restaurantes')
-    print('3. Ativar restaurante')
+    print('3. Alternar estado do restaurante')
     print('4. Sair\n')
 
 def finalizar_app():
+    ''' Essa função é responsável por exibir uma mensagem de finalização do app.'''
     exibir_subtitulo('Obrigado por utilizar o Sabor Express!')
 
 def voltar_ao_menu_principal():
+    ''' Essa função é responsável por exibir uma mensagem de retorno ao menu principal.'''
     input('\nDigite uma tecla para voltar ao menu ')
     main()
     
 
 def opcao_invalida():
+    ''' Essa função é responsável por exibir uma mensagem de erro caso o usuário digite uma opção inválida.'''
     print('Opção inválida.\n')
     voltar_ao_menu_principal()
 
 def exibir_subtitulo(texto):
+    ''' Essa função é responsável por exibir o subtítulo do menu.'''
     os.system('cls')
+    linha = '*' * (len(texto))
+    print(linha)
     print(texto)
+    print(linha)
     print()
     
 def cadastrar_novo_restaurante():
+    ''' Essa função é responsável por cadastrar novos restaurantes no sistema.
+    
+    Inputs:
+        - nome_do_restaurante: Nome do restaurante que deseja cadastrar.
+        - categoria: Categoria do restaurante que deseja cadastrar.
+
+    Outputs:
+        - Adiciona um novo restaurante na lista de restaurantes cadastrados.
+    '''
     exibir_subtitulo('Cadastro de novos restaurantes')
     nome_do_restaurante = input('Digite o nome do restaurante que deseja cadastrar: ')
     categoria = input(f'Digite o nome da categoria do restaurante {nome_do_restaurante}: ')
@@ -40,17 +59,24 @@ def cadastrar_novo_restaurante():
     voltar_ao_menu_principal()
 
 def listar_restaurantes():
+    ''' Essa função é responsável por listar os restaurantes cadastrados no sistema.
+    
+    Prints:
+        - Nome do restaurante, categoria e estado (ativado ou desativado) de cada
+    '''
     exibir_subtitulo('Lista de restaurantes')
 
+    print(f'{'Nome do Restaurante'.ljust(22)} | {'Categoria'.ljust(20)} | {'Status'}')
     for restaurante in restaurantes:
         nome_restaurante = restaurante['nome']
         categoria = restaurante['categoria']
-        ativo = restaurante['ativo']
-        print(f'- {nome_restaurante} | {categoria} | {ativo}')
+        ativo = 'ativado' if restaurante['ativo'] else 'desativado'
+        print(f'- {nome_restaurante.ljust(20)} | {categoria.ljust(20)} | {ativo}')
 
     voltar_ao_menu_principal()
 
 def alternar_estado_restaurante():
+    ''' Essa função é responsável por alterar o estado de um restaurante no sistema.'''
     exibir_subtitulo('Alterando estado do restaurante')
     nome_restaurante = input('Digite o nome do restaurante que deseja alterar o estado: ')
     restaurante_encontrado = False
@@ -67,6 +93,7 @@ def alternar_estado_restaurante():
     voltar_ao_menu_principal()
 
 def escolher_opcao():
+    ''' Essa função é responsável por escolher a opção do menu.'''
     try:
         opcao_escolhida = int(input('Escolha uma opção: '))
         if opcao_escolhida == 1:
@@ -83,6 +110,7 @@ def escolher_opcao():
         opcao_invalida()
 
 def main():
+    ''' Essa função é responsável por iniciar o app.'''
     os.system('cls')
     exibir_nome_app()
     exibir_opcoes()
